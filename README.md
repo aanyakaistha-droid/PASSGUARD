@@ -28,7 +28,7 @@ PASSGUARD is a web-based password security analyzer built using Python and Flask
 
 1. Clone this repository:
 
-   git clone YOUR_REPOSITORY_URL
+   git clone https://github.com/aanyakaistha-droid/PASSGUARD
 
 2. Navigate to the project directory:
 
