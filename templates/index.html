@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PASSGUARD | Security Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+
+        <header>
+            <div class="logo">⬡ PASSGUARD</div>
+            <p class="subtitle">PASSWORD SECURITY ANALYZER</p>
+            <div class="status">● SYSTEM ONLINE</div>
+        </header>
+
+        <main>
+            <div class="icon">🛡️</div>
+            <h1>Secure your digital identity.</h1>
+            <p class="description">
+                Analyse your password and discover how strong it really is.
+            </p>
+
+
+<form method="POST" id="passwordForm">
+
+    <label for="password">ENTER PASSWORD</label>
+
+    <div class="password-box">
+        <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter a test password..."
+            required
+        >
+
+        <button type="button" id="togglePassword" class="eye-button">
+            SHOW
+        </button>
+    </div>
+
+    <div class="strength-section">
+        <div class="strength-info">
+            <span>LIVE STRENGTH</span>
+            <span id="strengthText">NOT CHECKED</span>
+        </div>
+
+        <div class="strength-bar">
+            <div id="strengthFill"></div>
+        </div>
+    </div>
+
+    <div class="requirements">
+        <p id="lengthCheck">○ At least 8 characters</p>
+        <p id="upperCheck">○ Uppercase letter</p>
+        <p id="lowerCheck">○ Lowercase letter</p>
+        <p id="numberCheck">○ Number</p>
+        <p id="specialCheck">○ Special character</p>
+    </div>
+
+    <button type="submit" class="analyse-button">
+        ANALYSE PASSWORD →
+    </button>
+
+</form>
+
+
+            {% if strength %}
+            <section class="result">
+                <p class="result-label">SECURITY ASSESSMENT</p>
+                <h2>{{ strength }}</h2>
+
+                <h3>RECOMMENDATIONS</h3>
+
+                {% if feedback %}
+                <ul>
+                    {% for item in feedback %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>Your password meets all basic checks!</p>
+                {% endif %}
+            </section>
+            {% endif %}
+
+
+<div class="generator">
+
+    <h2>SECURE PASSWORD GENERATOR</h2>
+
+    <p>Generate a random password for better security.</p>
+
+    <form action="/generate" method="POST">
+
+        <label for="length">PASSWORD LENGTH</label>
+
+        <input
+            type="number"
+            id="length"
+            name="length"
+            min="12"
+            max="64"
+            value="16"
+            required
+        >
+
+        <button type="submit">
+            GENERATE PASSWORD ⚡
+        </button>
+
+    </form>
+
+    {% if generator_error %}
+        <p class="error">{{ generator_error }}</p>
+    {% endif %}
+
+    {% if generated_password %}
+
+        <div class="generated-result">
+
+            <p>YOUR GENERATED PASSWORD</p>
+
+            <code id="generatedPassword">{{ generated_password }}</code>
+
+            <button
+                type="button"
+                id="copyButton"
+                class="copy-button"
+            >
+                COPY PASSWORD
+            </button>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+        </main>
+
+        <footer>
+            PASSGUARD © 2026 | SECURITY STARTS WITH YOU
+        </footer>
+
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
